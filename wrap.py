@@ -11,28 +11,27 @@ def text_flow(filehandle):
 
 def lines(flow, width):
     try:
-        p, n = "",""
+        p, n = "", ""
         i = 0
         l = []
         while True:
             p, n = n, next(flow)
-            if  n == "":
+            l.append(n)
+            i = i + len(n) + 1
+            if n == "":
                 yield " ".join(l) + "\n"
                 l = []
                 i = 0
             elif i >= width:
                 yield " ".join(l)
                 l = []
-                i  = 0
-            else:
-                l.append(n)
-                i = i + len(n) + 1
+                i = 0
 
     except StopIteration as s:
         yield " ".join(l)
-        
-        
-def wrap(filename:str, width:int=80):
+
+
+def wrap(filename: str, width: int = 80):
     with open(filename) as f:
         t = text_flow(f)
         l = lines(t, width)
