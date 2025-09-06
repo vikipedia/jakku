@@ -32,8 +32,7 @@ def backup():
     destinations = [os.path.join(target_location, s) for s in sources_]
 
     with ThreadPoolExecutor(max_workers=7) as executor:
-        for src, dest in zip(sources, destinations):
-            executor.submit(rsync, src, dest)
+        results = executor.map(rsync, sources, destinations)
 
 
 if __name__ == "__main__":
